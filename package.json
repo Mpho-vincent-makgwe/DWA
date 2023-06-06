@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "docdash": "^2.0.1",
+    "utils": "^0.3.1"
+  },
+  "name": "dynamicwebapplications",
+  "description": "learning web Application for school.",
+  "version": "1.0.5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mpho-vincent-makgwe/DWA.git"
+  },
+  "author": "Mpho Vincent Malgwe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mpho-vincent-makgwe/DWA/issues"
+  },
+  "homepage": "https://github.com/Mpho-vincent-makgwe/DWA#readme",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "2.8.8"
+  }
+}
