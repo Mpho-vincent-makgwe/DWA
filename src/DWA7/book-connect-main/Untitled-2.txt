@@ -1,0 +1,206 @@
+//for the books to display their details
+//code to display book details
+const detailsToggle = (event) => {
+    const overlay1 = document.querySelector('[data-list-active]');
+    const title = document.querySelector('[data-list-title]')
+    const subtitle = document.querySelector('[data-list-subtitle]')
+ const description = document.querySelector('[data-list-description]')
+    const image1 = document.querySelector('[data-list-image]')
+    const imageblur = document.querySelector('[data-list-blur]')
+    event.target.dataset.id ? overlay1.style.display = "block" : undefined;
+    event.target.dataset.description ? description.innerHTML = event.target.dataset.description : undefined;
+    event.target.dataset.subtitle ? subtitle.innerHTML = event.target.dataset.subtitle : undefined;
+    event.target.dataset.title ? title.innerHTML = event.target.dataset.title : undefined;
+    event.target.dataset.image ? image1.setAttribute ('src', event.target.dataset.image) : undefined;
+    event.target.dataset.image ? imageblur.setAttribute ('src', event.target.dataset.image) : undefined;
+};
+const detailsClose = document.querySelector('[data-list-close]')
+detailsClose.addEventListener('click', (event) => {
+document.querySelector("[data-list-active]").style.display = "none";
+})
+const bookclick = document.querySelector('[data-list-items]')
+bookclick.addEventListener('click', detailsToggle)
+
+
+
+
+
+
+let extractedBooks = books.slice(0, BOOKS_PER_PAGE);
+//display the first 36 books
+displayPreview(extractedBooks, initialFragment);
+let remainingToDisplay = books.length - booksDisplayed.length;
+list.button.innerHTML = `<span>Show more </span> <span class="list__remaining">${remainingToDisplay}</span>`;
+
+const handleShowMore = () => {
+  let remainingToDisplay = books.length - booksDisplayed.length;
+  let booksDisplayed = [...extractedBooks];
+  const fragmentMore = document.createDocumentFragment();
+  const startOfExtractedBooks = BOOKS_PER_PAGE * page;
+  if (remainingToDisplay >= 36) {
+    extractedBooks = books.slice(
+      startOfExtractedBooks,
+      startOfExtractedBooks + BOOKS_PER_PAGE
+    );
+  } else {
+    extractedBooks = books.slice(startOfExtractedBooks);
+    list.button.disabled = true;
+  }
+
+  booksDisplayed = [...booksDisplayed, ...extractedBooks];
+  remainingToDisplay = books.length - booksDisplayed.length;
+  displayPreview(extractedBooks, fragmentMore);
+  //empty out the fragment
+  fragmentMore.innerHTML = "";
+  page = page + 1;
+  list.button.innerHTML = `<span>Show more </span> <span class="list__remaining">${remainingToDisplay}</span>`;
+};
+const handelToggleOverlay = (element) => {
+  if (element.hasAttribute("open")) {
+    element.removeAttribute("open");
+    state.isOverlayOpen = false;
+  } else {
+    element.setAttribute("open", "open");
+    state.isOverlayOpen = true;
+  }
+};
+
+
+
+
+
+    // Set the overlay to display
+    overlay.style.display = 'block';
+
+    // Set the book details
+    description.innerHTML = event.target.dataset.description || '';
+    subtitle.innerHTML = event.target.dataset.subtitle || '';
+    title.innerHTML = event.target.dataset.title || '';
+    image.setAttribute('src', event.target.dataset.image || '');
+    imageBlur.setAttribute('src', event.target.dataset.image || '');
+
+
+
+
+    const createpreview = ({ author, image, title, id, description}) => {
+    const divPreview = document.createElement('div') 
+    divPreview.classList.add("preview")
+    divPreview.id = id
+   const htmlblock = /html/`
+   <img class= "preview__image" data-image-${id} src="${image}" id= "${id}">
+   <div class= "preview__info" data-info-${id} id= "${id}">
+         <h2 class= "preview__title" data-title-${id} id= "${id}">${title}</h2>
+         <h3 class= "preview__author" data-author-${id}  id= "${id}">${authors[author]}</h3>
+         <dialog data-description-${id}>${description}</dialog>
+    </div>`
+         
+         divPreview.innerHTML = htmlblock
+         
+     return divPreview                       
+};
+ const fragment = document.createDocumentFragment()
+ const extracted = books.slice(0, 36)
+ console.log (extracted.length)
+const displayDiscription = (event) => {
+   appoverlays.previewOverlay.show()
+   const hero = document.querySelector('[data-list-blur]')
+   const cover = document.querySelector('[data-list-image]')
+   const picture = document.querySelector(`[data-image-${event.target.id}]`).getAttribute('src')
+   const bookTitle = document.querySelector('[data-list-title]')
+   const description = document.querySelector('[data-list-description]')
+   cover.setAttribute('src', picture)
+   hero.setAttribute('src', picture)
+   bookTitle.innerHTML = document.querySelector(`[data-title-${event.target.id}]`).innerHTML 
+   description.innerHTML = document.querySelector(`[data-description-${event.target.id}]`).innerHTML
+   
+} 
+for (let { author, image, title, id, description} of extracted) {
+    const preview = createpreview({
+        author,
+        image,
+        title,
+        id,
+        description
+    })
+    
+    preview.addEventListener('click', displayDiscription)
+    fragment.appendChild(preview)
+};
+
+
+
+const overlay = document.querySelector('[data-list-active]');
+const title = document.querySelector('[data-list-title]');
+const subtitle = document.querySelector('[data-list-subtitle]');
+const description = document.querySelector('[data-list-description]');
+const image = document.querySelector('[data-list-image]');
+const imageBlur = document.querySelector('[data-list-blur]');
+const closeButton = document.querySelector('[data-list-close]');
+const bookItems = document.querySelector('[data-list-items]');
+
+let fragment = document.createDocumentFragment()
+const extracted = books.slice(0, 36)
+
+function createPreview({ author, id, image, title }) {
+    // implementation code goes here
+    const preview = document.createElement("div");
+preview.classList.add("preview");
+
+
+const img = document.createElement("img");
+img.src = image;
+img.alt = title;
+img.classList.add("preview__image"); // add a new class to the img element
+preview.appendChild(img);
+
+const info = document.createElement("div"); // create the new div
+info.classList.add("preview__info"); // add the class to the new div
+preview.appendChild(info); // append the new div to the preview div
+
+const titleEl = document.createElement("h2");
+titleEl.textContent = title;
+titleEl.classList.add("preview__title");
+info.appendChild(titleEl);
+titleEl.focus();
+
+const authorEl = document.createElement("p");
+authorEl.textContent = `By ${authors[author]}`;
+authorEl.classList.add("preview__author");
+info.appendChild(authorEl);
+
+const link = document.createElement("a");
+link.href = `article.html?id=${id}`;
+link.textContent = "Read more";
+// link.target = "_blank";
+info.appendChild(link);
+
+
+const dialog = document.createElement("dialog");
+
+
+preview.addEventListener('click', () => {
+    overlay.style.display = 'block';
+    description.innerHTML = description[id] || '';
+    subtitle.innerHTML = subtitle[id] || '';
+    title.innerHTML = title[id] || '';
+    image.setAttribute('src', image[id] || '');
+    imageBlur.setAttribute('src', picture[id] || '');
+  });
+
+return preview;
+}
+
+for (let i = 0; i < extracted.length; i++) {
+const { author, image, title, id } = extracted[i];
+const preview = createPreview({
+    author,
+    id,
+    image,
+    title,
+});
+fragment.appendChild(preview);
+}
+bookItems.appendChild(fragment);
+closeButton.addEventListener('click', () => {
+    overlay.style.display = '';
+  });
