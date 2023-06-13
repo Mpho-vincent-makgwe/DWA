@@ -16,7 +16,6 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
 
-
 // Query Selectors from Html file
 
 /** @type {} */
