@@ -16,7 +16,8 @@
  * @type {Book[]}
  */
 import { books, authors, BOOKS_PER_PAGE } from './data.js';
-
+import { search } from './searchModule.js';
+import { createPreviewElements } from '../scripts.js';
 
 
 
@@ -52,18 +53,12 @@ export const selectors = {
     searchTitle: document.querySelector('[data-search-title]'),
   },
 };
-export function initialFragment () {
-/** @type {number} */
-let page = 1;
-/** @type {Book[]} */
-let matches = books;
-
 /**
  * Create preview elements for the given items.
  * @param {Book[]} items - The array of book items.
  * @returns {DocumentFragment} - The document fragment containing the preview elements.
  */
-function createPreviewElements(items) {
+export function createPreviewElements(items) {
   const fragment = document.createDocumentFragment();
 
   for (const { author, id, image, title } of items) {
@@ -86,6 +81,14 @@ function createPreviewElements(items) {
   return fragment;
   
 }
+
+
+export function initialFragment () {
+/** @type {number} */
+let page = 1;
+/** @type {Book[]} */
+let matches = books;
+
     
 selectors.buttons.listButton.disabled = (matches.length - (page * BOOKS_PER_PAGE)) <= 1;
 selectors.buttons.listButton.innerText = `Show more(${(matches.length)}))`
@@ -146,4 +149,22 @@ selectors.objects.listItems.addEventListener('click', (event) => {
     selectors.objects.descriptionList.innerText = active.description;
   }
 });
+selectors.buttons.headerSearch.addEventListener('click', () => {
+    selectors.overlays.searchOverlay.open = true;
+  });
+  
+  selectors.buttons.headerSettings.addEventListener('click', () => {
+    selectors.overlays.settingsOverlay.open = true;
+  });
+  
+  selectors.buttons.searchOverlayCancelButton.addEventListener('click', () => {
+    selectors.overlays.searchOverlay.open = false;
+  });
+  
+  selectors.buttons.settingsOverlayCancelButton.addEventListener('click', () => {
+    selectors.overlays.settingsOverlay.open = false;
+  });
+  selectors.objects.searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+     search();});
 }

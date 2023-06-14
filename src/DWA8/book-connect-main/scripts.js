@@ -15,13 +15,15 @@
  * Represents a collection of books.
  * @type {Book[]}
  */
-import { initialFragment } from './modules/initialBooks.js';
 import { settings } from './modules/settingsModule.js';
+import { initialFragment, createPreviewElements } from './modules/initialBooks.js';
 import { search } from './modules/searchModule.js';
 
-function booksPreviews (event) {
-    initialFragment();
-    settings();
-    search();
-}
-window.addEventListener('DOMContentLoaded', booksPreviews);
+
+window.addEventListener('DOMContentLoaded', (event) =>{  
+ initialFragment();  
+  search();
+
+  settings();
+});
+
