@@ -1,4 +1,21 @@
-import { books, authors,BOOKS_PER_PAGE } from './data.js';
+//@ts-check
+/**
+ * @callback {Function}
+ */
+
+/**
+ * @typedef {Object} Book
+ * @property {string} author - The author of the book.
+ * @property {string} id - The unique identifier of the book.
+ * @property {string} image - The URL of the book's image.
+ * @property {string} title - The title of the book.
+ */
+
+/**
+ * Represents a collection of books.
+ * @type {Book[]}
+ */
+import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
 import { selectors } from './initialBooks.js';
 
 export function search () {
@@ -17,32 +34,32 @@ const searchModule = (function () {
   firstGenreElement.value = 'any';
   firstGenreElement.innerText = 'All Genres';
   genreHtml.appendChild(firstGenreElement);
-  
+
   for (const [id, name] of Object.entries(genres)) {
     const element = document.createElement('option');
     element.value = id;
     element.innerText = name;
     genreHtml.appendChild(element);
   }
-  
+
   selectors.objects.searchGenres.appendChild(genreHtml);
-  
+
   // Populate author options
   const authorsHtml = document.createDocumentFragment();
   const firstAuthorElement = document.createElement('option');
   firstAuthorElement.value = 'any';
   firstAuthorElement.innerText = 'All Authors';
   authorsHtml.appendChild(firstAuthorElement);
-  
+
   for (const [id, name] of Object.entries(authors)) {
     const element = document.createElement('option');
     element.value = id;
     element.innerText = name;
     authorsHtml.appendChild(element);
   }
-  
+
   selectors.objects.searchAuthors.appendChild(authorsHtml);
-  
+
     
     function filterBooks(event) {
       const formData = new FormData(event.target)
@@ -65,8 +82,8 @@ const searchModule = (function () {
           result.push(book);
         }
       }
-      page = 1;
-    matches = result;
+      let page = 1;
+      const matches = result;;
   
     if (result.length < 1) {
       selectors.objects.messageList.classList.add('list__message_show');
