@@ -11,6 +11,7 @@ buttons: {
     closeList: document.querySelector('[data-list-close]'),
     headerSettings: document.querySelector('[data-header-settings]'),
     headerSearch: document.querySelector('[data-header-search]'),
+    previewCancel: document.querySelector("body > dialog:nth-child(3) > div.overlay__row > button"),
 },
 objects: {
     settingsForm: document.querySelector('[data-settings-form]'),

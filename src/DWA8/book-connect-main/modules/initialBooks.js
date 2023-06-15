@@ -85,9 +85,9 @@ selectors.objects.listItems.appendChild(fragment);
     selectors.buttons.listButton.style.display = 'none';
   }
 
-  // const fragment = createPreviewElements(matches.slice(0, BOOKS_PER_PAGE));
-  // selectors.objects.listItems.appendChild(fragment);
-  // page += 1;
+  const fragment = createPreviewElements(matches.slice(0, BOOKS_PER_PAGE));
+  selectors.objects.listItems.appendChild(fragment);
+  page += 1;
 
 selectors.objects.listItems.addEventListener('click', (event) => {
   const pathArray = Array.from(event.path || event.composedPath());
@@ -132,4 +132,8 @@ selectors.buttons.searchOverlayCancelButton.addEventListener('click', () => {
 selectors.buttons.settingsOverlayCancelButton.addEventListener('click', () => {
   selectors.overlays.settingsOverlay.open = false;
 });
+selectors.buttons.previewCancel.addEventListener('click', () => {
+  selectors.objects.activeList.open = false;
+});
+
 };

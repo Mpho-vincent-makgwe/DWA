@@ -1,4 +1,3 @@
-import { } from './initialBooks.js';
 import { selectors } from './selectors.js';
 
 export function settings () {

@@ -16,11 +16,11 @@ import { selectors } from './modules/selectors.js';
 
 function booksPreviews (event) {
   initialFragmentPreview();
-  search()
+  search();
+  settings();
 }
-
 window.addEventListener('DOMContentLoaded', booksPreviews);
-
 selectors.objects.searchForm.addEventListener('submit', (event) => {
   event.preventDefault();
   search();});
+settings();
