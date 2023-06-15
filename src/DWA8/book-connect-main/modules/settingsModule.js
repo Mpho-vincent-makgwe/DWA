@@ -1,4 +1,5 @@
-import { selectors } from './initialBooks.js';
+import { } from './initialBooks.js';
+import { selectors } from './selectors.js';
 
 export function settings () {
 // Module 2: settingsModule.js

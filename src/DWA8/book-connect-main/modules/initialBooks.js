@@ -18,51 +18,13 @@
  * @type {Book[]}
  */
 import { books, authors, BOOKS_PER_PAGE } from './data.js';
-
-
-
-export const selectors = {
-  overlays: {
-    searchOverlay: document.querySelector('[data-search-overlay]'),
-    settingsOverlay: document.querySelector('[data-settings-overlay]'),
-  },
-  buttons: {
-    searchOverlayCancelButton: document.querySelector('[data-search-cancel]'),
-    settingsOverlayCancelButton: document.querySelector('[data-settings-cancel]'),
-    listButton: document.querySelector('[data-list-button]'),
-    settingsTheme: document.querySelector('[data-settings-theme]'),
-    closeList: document.querySelector('[data-list-close]'),
-    headerSettings: document.querySelector('[data-header-settings]'),
-    headerSearch: document.querySelector('[data-header-search]'),
-  },
-  objects: {
-    settingsForm: document.querySelector('[data-settings-form]'),
-    descriptionList: document.querySelector('[data-list-description]'),
-    activeList: document.querySelector('[data-list-active]'),
-    blurList: document.querySelector('[data-list-blur]'),
-    imageList: document.querySelector('[data-list-image]'),
-    titleList: document.querySelector('[data-list-title]'),
-    subactiveList: document.querySelector('[data-list-subtitle]'),
-    searchGenres: document.querySelector('[data-search-genres]'),
-    searchAuthors: document.querySelector('[data-search-authors]'),
-    searchForm: document.querySelector('[data-search-form]'),
-    messageList: document.querySelector('[data-list-message]'),
-    listItems: document.querySelector('[data-list-items]'),
-    searchTitle: document.querySelector('[data-search-title]'),
-  },
-};
-export function initialFragment () {
-/** @type {number} */
-let page = 1;
-/** @type {Book[]} */
-let matches = books;
-
+import { selectors } from './selectors.js';
 /**
  * Create preview elements for the given items.
  * @param {Book[]} items - The array of book items.
  * @returns {DocumentFragment} - The document fragment containing the preview elements.
  */
-function createPreviewElements(items) {
+export function createPreviewElements(items) {
   const fragment = document.createDocumentFragment();
 
   for (const { author, id, image, title } of items) {
@@ -85,7 +47,18 @@ function createPreviewElements(items) {
   return fragment;
   
 }
-    
+
+
+
+export function initialFragmentPreview () {
+/** @type {number} */
+let page = 1;
+/** @type {Book[]} */
+let matches = books;
+
+
+
+
 selectors.buttons.listButton.disabled = (matches.length - (page * BOOKS_PER_PAGE)) <= 1;
 selectors.buttons.listButton.innerText = `Show more(${(matches.length)}))`
 
@@ -95,27 +68,26 @@ selectors.buttons.listButton.addEventListener('click', () => {
     const itemsToAppend = matches.slice(start, end);
     const fragment = createPreviewElements(itemsToAppend);
     
-  selectors.buttons.listButton.innerText = `Show more(${(matches.length - (page * BOOKS_PER_PAGE))}))`
-    selectors.objects.listItems.appendChild(fragment);
+selectors.buttons.listButton.innerText = `Show more(${(matches.length - (page * BOOKS_PER_PAGE))}))`
+selectors.objects.listItems.appendChild(fragment);
   
-    if (end >= matches.length) {
-      selectors.buttons.listButton.style.display = 'none';
-    }
-  
+  if (end >= matches.length) {
+    selectors.buttons.listButton.style.display = 'none';
+  }
     page += 1;
   });
   
   const initialItems = matches.slice(0, BOOKS_PER_PAGE);
-  const initialFragment = createPreviewElements(initialItems);
-  selectors.objects.listItems.appendChild(initialFragment);
+  const initialFragmentPreview = createPreviewElements(initialItems);
+  selectors.objects.listItems.appendChild(initialFragmentPreview);
   
   if (matches.length <= BOOKS_PER_PAGE) {
     selectors.buttons.listButton.style.display = 'none';
   }
 
-  const fragment = createPreviewElements(matches.slice(0, BOOKS_PER_PAGE));
-  selectors.objects.listItems.appendChild(fragment);
-  page += 1;
+  // const fragment = createPreviewElements(matches.slice(0, BOOKS_PER_PAGE));
+  // selectors.objects.listItems.appendChild(fragment);
+  // page += 1;
 
 selectors.objects.listItems.addEventListener('click', (event) => {
   const pathArray = Array.from(event.path || event.composedPath());
@@ -160,8 +132,4 @@ selectors.buttons.searchOverlayCancelButton.addEventListener('click', () => {
 selectors.buttons.settingsOverlayCancelButton.addEventListener('click', () => {
   selectors.overlays.settingsOverlay.open = false;
 });
-
-selectors.objects.searchForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-   search();});
 };
