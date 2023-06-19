@@ -1,8 +1,9 @@
 //@ts-check
-
 /**
  * @callback {Function}
- */
+ *
+ * /
+
 
 /**
  * @typedef {Object} Book
@@ -24,7 +25,6 @@ import { selectors } from './selectors.js';
  * @returns {DocumentFragment} - The document fragment containing the preview elements.
  */
 export function createPreviewElements(items) {
-
   const fragment = document.createDocumentFragment();
 
   for (const { author, id, image, title } of items) {
@@ -50,88 +50,90 @@ export function createPreviewElements(items) {
 
 
 
+export function initialFragmentPreview () {
+/** @type {number} */
+let page = 1;
+/** @type {Book[]} */
+let matches = books;
 
-export function initialFragmentPreview() {
-  let page = 1;
-  let matches = books.slice();
 
-  selectors.buttons.listButton.disabled = matches.length - page * BOOKS_PER_PAGE <= 1;
-  selectors.buttons.listButton.innerText = `Show more(${matches.length})`;
 
-  selectors.buttons.listButton.removeEventListener('click', showMoreItems);
-  selectors.buttons.listButton.addEventListener('click', showMoreItems);
 
-  const initialItems = matches.slice(0, BOOKS_PER_PAGE);
-  const initialFragment = createPreviewElements(initialItems);
-  selectors.objects.listItems.appendChild(initialFragment);
+selectors.buttons.listButton.disabled = (matches.length - (page * BOOKS_PER_PAGE)) <= 1;
+selectors.buttons.listButton.innerText = `Show more(${(matches.length)}))`
 
-  if (matches.length <= BOOKS_PER_PAGE) {
-    selectors.buttons.listButton.style.display = 'none';
-  } else {
-    selectors.buttons.listButton.style.display = 'block';
-  }
-
-  selectors.objects.listItems.removeEventListener('click', handlePreviewClick);
-  selectors.objects.listItems.addEventListener('click', handlePreviewClick);
-
-  selectors.buttons.headerSearch.removeEventListener('click', openSearchOverlay);
-  selectors.buttons.headerSearch.addEventListener('click', openSearchOverlay);
-
-  selectors.buttons.searchOverlayCancelButton.removeEventListener('click', closeSearchOverlay);
-  selectors.buttons.searchOverlayCancelButton.addEventListener('click', closeSearchOverlay);
-
-  selectors.buttons.previewCancel.removeEventListener('click', closeActiveList);
-  selectors.buttons.previewCancel.addEventListener('click', closeActiveList);
-
-  function showMoreItems() {
+selectors.buttons.listButton.addEventListener('click', () => {
     const start = (page - 1) * BOOKS_PER_PAGE;
     const end = page * BOOKS_PER_PAGE;
     const itemsToAppend = matches.slice(start, end);
     const fragment = createPreviewElements(itemsToAppend);
-
-    selectors.buttons.listButton.innerText = `Show more(${matches.length - page * BOOKS_PER_PAGE})`;
-    selectors.objects.listItems.appendChild(fragment);
-
-    if (end >= matches.length) {
-      selectors.buttons.listButton.style.display = 'none';
-    }
-
+    
+selectors.buttons.listButton.innerText = `Show more(${(matches.length - (page * BOOKS_PER_PAGE))}))`
+selectors.objects.listItems.appendChild(fragment);
+  
+  if (end >= matches.length) {
+    selectors.buttons.listButton.style.display = 'none';
+  }
     page += 1;
+  });
+  
+  const initialItems = matches.slice(0, BOOKS_PER_PAGE);
+  const initialFragmentPreview = createPreviewElements(initialItems);
+  selectors.objects.listItems.appendChild(initialFragmentPreview);
+  
+  if (matches.length <= BOOKS_PER_PAGE) {
+    selectors.buttons.listButton.style.display = 'none';
   }
 
-  function handlePreviewClick(event) {
-    const pathArray = Array.from(event.composedPath ? event.composedPath() : event.path);
-    let active = null;
+  const fragment = createPreviewElements(matches.slice(0, BOOKS_PER_PAGE));
+  selectors.objects.listItems.appendChild(fragment);
+  page += 1;
 
-    for (const node of pathArray) {
-      if (active) break;
+selectors.objects.listItems.addEventListener('click', (event) => {
+  const pathArray = Array.from(event.path || event.composedPath());
+  let active = null;
 
-      if (node?.dataset?.preview) {
-        active = books.find(book => book.id === node.dataset.preview);
+  for (const node of pathArray) {
+    if (active) break;
+
+    if (node?.dataset?.preview) {
+      let result = null;
+
+      for (const singleBook of books) {
+        if (result) break;
+        if (singleBook.id === node?.dataset?.preview) result = singleBook;
       }
-    }
 
-    if (active) {
-      selectors.objects.activeList.open = true;
-      selectors.objects.blurList.src = active.image;
-      selectors.objects.imageList.src = active.image;
-      selectors.objects.titleList.innerText = active.title;
-      selectors.objects.subactiveList.innerText = `${authors[active.author]} (${new Date(
-        active.published
-      ).getFullYear()})`;
-      selectors.objects.descriptionList.innerText = active.description;
+      active = result;
     }
   }
 
-  selectors.buttons.headerSearch.addEventListener('click', () => {
-    selectors.overlays.searchOverlay.open = true;
-  });
+  if (active) {
+    selectors.objects.activeList.open = true;
+    selectors.objects.blurList.src = active.image;
+    selectors.objects.imageList.src = active.image;
+    selectors.objects.titleList.innerText = active.title;
+    selectors.objects.subactiveList.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+    selectors.objects.descriptionList.innerText = active.description;
+  }
+});
+selectors.buttons.headerSearch.addEventListener('click', () => {
+  selectors.overlays.searchOverlay.open = true;
+});
 
-  selectors.buttons.searchOverlayCancelButton.addEventListener('click', () => {
-    selectors.overlays.searchOverlay.open = false;
-  });
+selectors.buttons.headerSettings.addEventListener('click', () => {
+  selectors.overlays.settingsOverlay.open = true;
+});
 
-  selectors.buttons.previewCancel.addEventListener('click', () => {
-    selectors.objects.activeList.open = false;
-  });
-}
+selectors.buttons.searchOverlayCancelButton.addEventListener('click', () => {
+  selectors.overlays.searchOverlay.open = false;
+});
+
+selectors.buttons.settingsOverlayCancelButton.addEventListener('click', () => {
+  selectors.overlays.settingsOverlay.open = false;
+});
+selectors.buttons.previewCancel.addEventListener('click', () => {
+  selectors.objects.activeList.open = false;
+});
+
+};

@@ -1,6 +1,6 @@
-// import { selectors } from './selectors.js';
+import { selectors } from './selectors.js';
 
- function settings () {
+export function settings () {
 // Module 2: settingsModule.js
 /**
  * The settingsModule handles the theme settings for the book collection interface.
