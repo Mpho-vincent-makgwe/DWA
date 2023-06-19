@@ -13,6 +13,7 @@ import { initialFragmentPreview } from './modules/initialBooks.js';
 import { settings } from './modules/settingsModule.js';
 import { search } from './modules/searchModule.js';
 import { selectors } from './modules/selectors.js';
+import './Components/Preview.js';
 
 function booksPreviews (event) {
   initialFragmentPreview();

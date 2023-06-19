@@ -9,18 +9,14 @@
  * Represents a collection of books.
  * @type {Book[]}
  */
-import { initialFragmentPreview } from './modules/initialBooks.js';
+import { initialFragment } from './modules/initialBooks.js';
 import { settings } from './modules/settingsModule.js';
 import { search } from './modules/searchModule.js';
-import { selectors } from './modules/selectors.js';
-
 function booksPreviews (event) {
-  initialFragmentPreview();
-  search();
+  initialFragment();
   settings();
+  search();
+
+  window.addEventListener('DOMContentLoaded', booksPreviews);
 }
-window.addEventListener('DOMContentLoaded', booksPreviews);
-selectors.objects.searchForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  search();});
-settings();
+booksPreviews();
