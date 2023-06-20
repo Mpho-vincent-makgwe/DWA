@@ -19,7 +19,7 @@
  */
 import { books, authors, BOOKS_PER_PAGE } from './data.js';
 import { selectors } from './selectors.js';
-import '../Components/Preview.js';
+import { BookPreviewComponent } from '../Components/Preview.js';
 /**
  * Create preview elements for the given items.
  * @param {Book[]} items - The array of book items.
@@ -41,7 +41,6 @@ export function createPreviewElements(items) {
           <div class="preview__author">${authors[author]}</div>
       </div>
     `;
-
     fragment.appendChild(element);
   }
 
@@ -56,6 +55,8 @@ export function initialFragmentPreview() {
   let page = 1;
   /** @type {Book[]} */
   let matches = books;
+
+  
 
   selectors.buttons.listButton.disabled = (matches.length - page * BOOKS_PER_PAGE) <= 0;
   selectors.buttons.listButton.innerText = `Show more (${matches.length - page * BOOKS_PER_PAGE})`;
@@ -78,6 +79,7 @@ export function initialFragmentPreview() {
   const initialItems = matches.slice(0, BOOKS_PER_PAGE);
   const initialFragmentPreview = createPreviewElements(initialItems);
   selectors.objects.listItems.appendChild(initialFragmentPreview);
+
 
   if (matches.length <= BOOKS_PER_PAGE) {
     selectors.buttons.listButton.style.display = 'none';

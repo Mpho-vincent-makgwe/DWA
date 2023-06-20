@@ -1,0 +1,31 @@
+export const selectors = {
+overlays: {
+    searchOverlay: document.querySelector('[data-search-overlay]'),
+    settingsOverlay: document.querySelector('[data-settings-overlay]'),
+},
+buttons: {
+    searchOverlayCancelButton: document.querySelector('[data-search-cancel]'),
+    settingsOverlayCancelButton: document.querySelector('[data-settings-cancel]'),
+    listButton: document.querySelector('[data-list-button]'),
+    settingsTheme: document.querySelector('[data-settings-theme]'),
+    closeList: document.querySelector('[data-list-close]'),
+    headerSettings: document.querySelector('[data-header-settings]'),
+    headerSearch: document.querySelector('[data-header-search]'),
+    previewCancel: document.querySelector("body > dialog:nth-child(3) > div.overlay__row > button"),
+},
+objects: {
+    settingsForm: document.querySelector('[data-settings-form]'),
+    descriptionList: document.querySelector('[data-list-description]'),
+    activeList: document.querySelector('[data-list-active]'),
+    blurList: document.querySelector('[data-list-blur]'),
+    imageList: document.querySelector('[data-list-image]'),
+    titleList: document.querySelector('[data-list-title]'),
+    subactiveList: document.querySelector('[data-list-subtitle]'),
+    searchGenres: document.querySelector('[data-search-genres]'),
+    searchAuthors: document.querySelector('[data-search-authors]'),
+    searchForm: document.querySelector('[data-search-form]'),
+    messageList: document.querySelector('[data-list-message]'),
+    listItems: document.querySelector('[data-list-items]'),
+    searchTitle: document.querySelector('[data-search-title]'),
+},
+};  

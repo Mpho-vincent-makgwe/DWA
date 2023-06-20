@@ -5,23 +5,110 @@ const previewOverlay = document.createElement('template');
 previewOverlay.innerHTML = `
 <style>
 * {
-    box-sizing: border-box;
+box-sizing: border-box;
 }
-.overlay__row {
+
+.overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-width: 0;
+    box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
+    animation-name: enter;
+    animation-duration: 0.6s;
+    z-index: 10;
+    background-color: rgba(var(--color-light), 1);
+  }
+  
+  @media (min-width: 30rem) {
+    .overlay {
+      max-width: 30rem;
+      left: 0%;
+      top: 0;
+      border-radius: 8px;;
+    }
+  }
+  
+  .overlay__form {
+    padding-bottom: 0.5rem;
+    margin: 0 auto;
+  }
+  
+  .overlay__row {
     display: flex;
     gap: 0.5rem;
     margin: 0 auto;
     justify-content: center;
-}
-.overlay__button_primary {
+  }
+  
+  .overlay__button {
+    font-family: Roboto, sans-serif;
+    background-color: rgba(var(--color-blue), 0.1);
+    transition: background-color 0.1s;
+    border-width: 0;
+    border-radius: 6px;
+    height: 2.75rem;
+    cursor: pointer;
+    width: 50%;
+    color: rgba(var(--color-blue), 1);
+    font-size: 1rem;
+    border: 1px solid rgba(var(--color-blue), 1);
+  }
+  
+  .overlay__button_primary {
     background-color: rgba(var(--color-blue), 1);
     color: rgba(var(--color-force-light), 1);
-}
-.overlay__button_primary:hover {
+  }
+  
+  .overlay__button:hover {
+    background-color: rgba(var((var(--color-blue))), 0.2);
+  }
+  
+  
+  .overlay__button_primary:hover {
     background-color: rgba(var(--color-blue), 0.8);
     color: rgba(var(--color-force-light), 1);
-}
-.overlay__title {
+  }
+  
+  .overlay__input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    background-color: rgba(var(--color-dark), 0.05);
+    border-width: 0;
+    border-radius: 6px;
+    width: 100%;
+    height: 4rem;
+    color: rgba(var(--color-dark), 1);
+    padding: 1rem 0.5rem 0 0.75rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: Roboto, sans-serif;
+    cursor: pointer;
+  }
+  
+  .overlay__input_select {
+    padding-left: 0.5rem;
+  }
+  
+  .overlay__field {
+    position: relative;
+    display: block;
+  }
+  
+  .overlay__label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-size: 0.85rem;
+    color: rgba(var(--color-dark), 0.4);
+  }
+  
+  .overlay__input:hover {
+    background-color: rgba(var(--color-dark), 0.1);
+  }
+  
+  .overlay__title {
     padding: 1rem 0 0.25rem;
     font-size: 1.25rem;
     font-weight: bold;
@@ -29,138 +116,194 @@ previewOverlay.innerHTML = `
     letter-spacing: -0.1px;
     max-width: 25rem;
     margin: 0 auto;
-    color: rgba(var(--color-dark), 0.8);
-}
-.overlay__content {
-    padding: 2rem 1.5rem;
-    text-align: center;
-    padding-top: 3rem;
-}
-.overlay__preview {
-    overflow: hidden;
-    margin: -1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.overlay__data_secondary {
-    color: rgba(var(--color-dark), 0.6);
-}
-.overlay__blur {
+    color: rgba(var(--color-dark), 0.8)
+  }
+  
+  .overlay__blur {
     width: 100%;
     height: 200px;
     filter: blur(10px);
     opacity: 0.5;
     transform: scale(2);
-}
-.overlay__data {
+  }
+  
+  .overlay__image {
+    max-width: 10rem;
+    position: absolute;
+    top: 1.5m;
+    left: calc(50% - 5rem);
+    border-radius: 2px;
+    box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
+  }
+  
+  .overlay__data {
     font-size: 0.9rem;
     display: -webkit-box;
     -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical;  
     overflow: hidden;
-    color: rgba(var(--color-dark), 0.8);
-}
-.overlay__image {
-    max-width: 10rem;
-    position: absolute;
-    top: 1.5rem;
-    left: calc(50% - 5rem);
-    border-radius: 2px;
-    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-}
-.preview-item {
-    cursor: pointer;
-}
+    color: rgba(var(--color-dark), 0.8)
+  }
+  
+  .overlay__data_secondary {
+    color: rgba(var(--color-dark), 0.6)
+  }
+  
+  .overlay__content {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    padding-top: 3rem;
+  }
+  
+  .overlay__preview {
+    overflow: hidden;
+    margin: -1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .overlay__background {
+    background: rgba(var(--color-dark), 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+
 </style>
+<div>
 <dialog class="overlay" data-list-active>
 <div class="overlay__preview">
-    <img class="overlay__blur" data-list-blur src="" />
-    <img class="overlay__image" data-list-image src="" />
+<img class="overlay__blur" data-list-blur src="" />
+<img class="overlay__image" data-list-image src="" />
 </div>
 <div class="overlay__content">
-    <h3 class="overlay__title" data-list-title></h3>
-    <div class="overlay__data" data-list-subtitle></div>
-    <p class="overlay__data overlay__data_secondary" data-list-description></p>
+<h3 class="overlay__title" data-list-title></h3>
+<div class="overlay__data" data-list-subtitle></div>
+<p class="overlay__data overlay__data_secondary" data-list-description></p>
 </div>
 <div class="overlay__row">
-    <button class="overlay__button overlay__button_primary" data-list-close>Close</button>
+<button class="overlay__button overlay__button_primary" data-list-close>Close</button>
 </div>
-</dialog>`;
+</dialog>
+</div>`;
+
 
 export class BookPreviewComponent extends HTMLElement {
 constructor() {
-super();
-this.attachShadow({ mode: 'open' });
-this.shadowRoot.appendChild(previewOverlay.content.cloneNode(true));
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(previewOverlay.content.cloneNode(true));
 }
 
 connectedCallback() {
-const author = this.getAttribute('author') || '';
-const image = this.getAttribute('image') || '';
-const title = this.getAttribute('title') || '';
-
-this.updateContent(author, image, title);
-
-this.addEventListener('click', (event) => {
-    this.handleClick(event);
-});
+    const author = this.getAttribute('author') || '';
+    const image = this.getAttribute('image') || '';
+    const title = this.getAttribute('title') || '';
+    this.updateContent(author, image, title);
+    
+    selectors.objects.listItems.addEventListener('click', ()=>{
+    this.handleClick.bind(this);
+    console.log('hello world');
+    this.shadowRoot.querySelector('[class="overlay"]').open = true;
+    this.handleClick(this);
+    }, 
+    )
+    return true;
 }
 
 static get observedAttributes() {
-return ['author', 'image', 'title'];
+    return ['author', 'image', 'title'];
 }
 
 attributeChangedCallback(name, oldValue, newValue) {
-if (oldValue !== newValue) {
+    if (oldValue !== newValue) {
     const author = this.getAttribute('author') || '';
     const image = this.getAttribute('image') || '';
     const title = this.getAttribute('title') || '';
 
     this.updateContent(author, image, title);
-}
+    }
 }
 
 set book(book) {
-this._book = book;
-this.render();
+    this._book = book;
+    this.render();
 }
 
-updateContent(authors, image, title) {
-    this.shadowRoot.querySelector('.overlay__title').textContent = title;
-    this.shadowRoot.querySelector('.overlay__subactive').textContent = authors[author];
-    this.shadowRoot.querySelector('.overlay__description').textContent = '';
-    this.shadowRoot.querySelector('.overlay__image').src = image;
-    this.shadowRoot.querySelector('.overlay__blur').src = image;
-}
+updateContent(author, image, title) {
+    const overlayTitle = this.shadowRoot.querySelector('.overlay__title');
+    const overlaySubtitle = this.shadowRoot.querySelector('.overlay__data.overlay__data_secondary');
+    const overlayDescription = this.shadowRoot.querySelector('.overlay__data');
 
+    overlayTitle.textContent = title;
+    overlaySubtitle.textContent = authors[author];
+    overlayDescription.textContent = '';
+
+    const overlayImage = this.shadowRoot.querySelector('.overlay__image');
+    overlayImage.src = image;
+    overlayImage.alt = title;
+
+    const overlayBlur = this.shadowRoot.querySelector('.overlay__blur');
+    overlayBlur.src = image;
+    overlayBlur.alt = title;
+}
 
 handleClick(event) {
-const activeId = event.target.dataset.preview;
-const active = books.find((book) => book.id === activeId);
-
-if (active) {
-    selectors.objects.activeList.open = true;
-    selectors.objects.blurList.src = active.image;
-    selectors.objects.imageList.src = active.image;
-    selectors.objects.titleList.innerText = active.title;
-    selectors.objects.subactiveList.innerText = authors[active.author];
-    selectors.objects.descriptionList.innerText = active.description;
-}
-
-const clickEvent = new CustomEvent('previewClick', {
-    detail: { book: this.book },
-});
-this.dispatchEvent(clickEvent);
-}
+    const activeId = event.target.dataset.preview;
+    const active = books.find((book) => book.id === activeId);
+    const book = this._book;
+  
+    if (book) {
+      const overlayTitle = this.shadowRoot.querySelector('[data-list-title]');
+      const overlaySubtitle = this.shadowRoot.querySelector('[data-list-subtitle]');
+      const overlayDescription = this.shadowRoot.querySelector('[data-list-description]');
+  
+      overlayTitle.textContent = book.title;
+      overlaySubtitle.textContent = `${authors[book.author]} (${new Date(book.published).getFullYear()})`;
+      overlayDescription.textContent = book.description;
+  
+      const overlayImage = this.shadowRoot.querySelector('[data-list-image]');
+      overlayImage.src = book.image;
+      overlayImage.alt = book.title;
+  
+      const overlayBlur = this.shadowRoot.querySelector('[data-list-blur]');
+      overlayBlur.src = book.image;
+      overlayBlur.alt = book.title;
+  
+      const dialog = this.shadowRoot.querySelector('dialog');
+      dialog.showModal();
+    }
+  
+    if (active) {
+      const activeList = selectors.objects.activeList;
+      const blurList = selectors.objects.blurList;
+      const imageList = selectors.objects.imageList;
+      const titleList = selectors.objects.titleList;
+      const subactiveList = selectors.objects.subactiveList;
+      const descriptionList = selectors.objects.descriptionList;
+  
+      activeList.open = true;
+      blurList.src = active.image;
+      imageList.src = active.image;
+      titleList.innerText = active.title;
+      subactiveList.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+      descriptionList.innerText = active.description;
+    }
+  
+    const clickEvent = new CustomEvent('previewClick', {
+      detail: { book: this.book },
+    });
+    this.dispatchEvent(clickEvent);
+  }
 
 render() {
-if (!this.book) {
+    if (!this.book) {
     this.shadowRoot.innerHTML = '';
     return;
-}
+    }
 }
 }
 
