@@ -29,7 +29,7 @@ export function createPreviewElements(items) {
 
   for (const { author, id, image, title } of items) {
     const element = document.createElement('button');
-    element.classList = 'preview';
+    element.classList.add('preview');
     element.setAttribute('data-preview', id);
 
     element.innerHTML = `

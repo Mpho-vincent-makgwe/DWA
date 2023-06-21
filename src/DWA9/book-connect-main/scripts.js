@@ -9,7 +9,8 @@
  * Represents a collection of books.
  * @type {Book[]}
  */
-import { initialFragmentPreview } from './modules/initialBooks.js';
+import { initialFragmentPreview, createPreviewElements } from './modules/initialBooks.js';
+
 import { settings } from './modules/settingsModule.js';
 import { search } from './modules/searchModule.js';
 import { selectors } from './modules/selectors.js';

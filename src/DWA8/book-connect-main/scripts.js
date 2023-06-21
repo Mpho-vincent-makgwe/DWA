@@ -9,11 +9,11 @@
  * Represents a collection of books.
  * @type {Book[]}
  */
-import { initialFragment } from './modules/initialBooks.js';
+import { initialFragmentPreview } from './modules/initialBooks.js';
 import { settings } from './modules/settingsModule.js';
 import { search } from './modules/searchModule.js';
 function booksPreviews (event) {
-  initialFragment();
+  initialFragmentPreview();
   settings();
   search();
 

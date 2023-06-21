@@ -1,5 +1,5 @@
 import { selectors } from '../modules/selectors.js';
-import { books, authors } from '../modules/data.js';
+import { books, authors, genres, BOOKS_PER_PAGE  } from '../modules/data.js';
 
 const previewOverlay = document.createElement('template');
 previewOverlay.innerHTML = `
@@ -199,80 +199,51 @@ constructor() {
 }
 
 connectedCallback() {
-    const author = this.getAttribute('author') || '';
-    const image = this.getAttribute('image') || '';
-    const title = this.getAttribute('title') || '';
-    this.updateContent(author, image, title);
-    
-    selectors.objects.listItems.addEventListener('click', ()=>{
-        const openxx = this.shadowRoot.querySelector('[class="overlay"]');
-    this.handleBookClick.bind(this);
-    openxx.open = true;
-    
-    }, 
-    )
-    return true;
+    selectors.objects.listItems.addEventListener('click', (event)=>{
+      selectors.objects.listItems.addEventListener('click', (event) => {
+        const pathArray = Array.from(event.path || event.composedPath());
+        let active = null;
+      
+        for (const node of pathArray) {
+          if (active) break;
+      
+          if (node?.dataset?.preview) {
+            let result = null;
+      
+            for (const singleBook of books) {
+              if (result) break;
+              if (singleBook.id === node?.dataset?.preview) result = singleBook;
+            }
+      
+            active = result;
+          }
+        }
+      
+        if (active) {
+          const overlay = this.shadowRoot.querySelector('.overlay').open = true;
+          const previewImage = this.shadowRoot.querySelector('[data-list-image]').src = active.image;
+          const previewBlur = this.shadowRoot.querySelector('[data-list-blur]').src = active.image;
+          const title = this.shadowRoot.querySelector('[data-list-title]').innerText = active.title;
+          const subtitle = this.shadowRoot.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+          const description = this.shadowRoot.querySelector('[data-list-description]').innerText = active.description;
+        }
+      });
+      // this.handleBookClick(book)
+    },document.querySelector("body > book-preview:nth-child(4)").shadowRoot.querySelector("div > dialog > div.overlay__row > button").addEventListener('click', ()=>{
+      const openxx = this.shadowRoot.querySelector('[class="overlay"]');
+      openxx.open = false;
+    }))
+    return;
 }
 
 static get observedAttributes() {
     return ['author', 'image', 'title'];
 }
 
-attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-    const author = this.getAttribute('author') || '';
-    const image = this.getAttribute('image') || '';
-    const title = this.getAttribute('title') || '';
-
-    this.updateContent(author, image, title);
-    }
-}
-
 set book(book) {
     this._book = book;
     this.render();
 }
-
-updateContent(author, image, title) {
-    const overlayTitle = this.shadowRoot.querySelector('.overlay__title');
-    const overlaySubtitle = this.shadowRoot.querySelector('.overlay__data.overlay__data_secondary');
-    const overlayDescription = this.shadowRoot.querySelector('.overlay__data');
-
-    overlayTitle.textContent = title;
-    overlaySubtitle.textContent = authors[author];
-    overlayDescription.textContent = '';
-
-    const overlayImage = this.shadowRoot.querySelector('.overlay__image');
-    overlayImage.src = image;
-    overlayImage.alt = title;
-
-    const overlayBlur = this.shadowRoot.querySelector('.overlay__blur');
-    overlayBlur.src = image;
-    overlayBlur.alt = title;
-
-}
-
- handleBookClick(book) {
-  // Get references to the elements inside the overlay
-  const overlay = this.shadowRoot.querySelector('.overlay');
-  const previewImage = this.shadowRoot.querySelector('[data-list-image]');
-  const previewBlur = this.shadowRoot.querySelector('[data-list-blur]');
-  const title = this.shadowRoot.querySelector('[data-list-title]');
-  const subtitle = this.shadowRoot.querySelector('[data-list-subtitle]');
-  const description = this.shadowRoot.querySelector('[data-list-description]');
-  const closeButton = this.shadowRoot.querySelector('[data-list-close]');
-
-  // Set the values for the elements
-  previewImage.src = book.imageUrl;
-  previewBlur.src = book.imageUrl;
-  title.textContent = book.title;
-  subtitle.textContent = book.subtitle;
-  description.textContent = book.description;
-
-  // Open the overlay
-  overlay.open = true;
-}
-
 render() {
     if (!this.book) {
     this.shadowRoot.innerHTML = '';

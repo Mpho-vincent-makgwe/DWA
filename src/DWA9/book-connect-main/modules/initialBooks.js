@@ -50,7 +50,7 @@ export function createPreviewElements(items) {
 
 
 
-export default function initialFragmentPreview() {
+export function initialFragmentPreview() {
   /** @type {number} */
   let page = 1;
   /** @type {Book[]} */
@@ -101,4 +101,4 @@ export default function initialFragmentPreview() {
     selectors.overlays.settingsOverlay.open = false;
   });
 
-}
+};
