@@ -14,7 +14,7 @@ import { initialFragmentPreview, createPreviewElements } from './modules/initial
 import { settings } from './modules/settingsModule.js';
 import { search } from './modules/searchModule.js';
 import { selectors } from './modules/selectors.js';
-import { BookPreviewComponent } from'./Components/Preview.js';
+import './Components/Preview.js';
 
 function booksPreviews (event) {
   initialFragmentPreview();

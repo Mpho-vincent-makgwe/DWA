@@ -195,14 +195,22 @@ export class BookPreviewComponent extends HTMLElement {
 constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(previewOverlay.content.cloneNode(true));
+    
 }
 
 connectedCallback() {
-    selectors.objects.listItems.addEventListener('click', (event)=>{
-      selectors.objects.listItems.addEventListener('click', (event) => {
-        const pathArray = Array.from(event.path || event.composedPath());
-        let active = null;
+  this.shadowRoot.appendChild(previewOverlay.content.cloneNode(true));
+
+      
+  const closeButton = this.shadowRoot.querySelector('[data-list-close]');
+    closeButton.addEventListener('click', () => {
+      const openOverlay = this.shadowRoot.querySelector('.overlay');
+      openOverlay.open = false;
+    });
+  selectors.objects.listItems.addEventListener('click', (event) => {
+    console.log(event.target);      
+    const pathArray = Array.from(event.path || event.composedPath());
+      let active = null;
       
         for (const node of pathArray) {
           if (active) break;
@@ -227,19 +235,12 @@ connectedCallback() {
           const subtitle = this.shadowRoot.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
           const description = this.shadowRoot.querySelector('[data-list-description]').innerText = active.description;
         }
-      });
-      // this.handleBookClick(book)
-    },document.querySelector("body > book-preview:nth-child(4)").shadowRoot.querySelector("div > dialog > div.overlay__row > button").addEventListener('click', ()=>{
-      const openxx = this.shadowRoot.querySelector('[class="overlay"]');
-      openxx.open = false;
-    }))
+  });
     return;
 }
-
 static get observedAttributes() {
     return ['author', 'image', 'title'];
 }
-
 set book(book) {
     this._book = book;
     this.render();
@@ -251,5 +252,4 @@ render() {
     }
 }
 }
-
-customElements.define('book-preview', BookPreviewComponent);
+window.customElements.define('book-preview', BookPreviewComponent);
