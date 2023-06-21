@@ -205,10 +205,10 @@ connectedCallback() {
     this.updateContent(author, image, title);
     
     selectors.objects.listItems.addEventListener('click', ()=>{
-    this.handleClick.bind(this);
-    console.log('hello world');
-    this.shadowRoot.querySelector('[class="overlay"]').open = true;
-    this.handleClick(this);
+        const openxx = this.shadowRoot.querySelector('[class="overlay"]');
+    this.handleBookClick.bind(this);
+    openxx.open = true;
+    
     }, 
     )
     return true;
@@ -249,55 +249,29 @@ updateContent(author, image, title) {
     const overlayBlur = this.shadowRoot.querySelector('.overlay__blur');
     overlayBlur.src = image;
     overlayBlur.alt = title;
+
 }
 
-handleClick(event) {
-    const activeId = event.target.dataset.preview;
-    const active = books.find((book) => book.id === activeId);
-    const book = this._book;
-  
-    if (book) {
-      const overlayTitle = this.shadowRoot.querySelector('[data-list-title]');
-      const overlaySubtitle = this.shadowRoot.querySelector('[data-list-subtitle]');
-      const overlayDescription = this.shadowRoot.querySelector('[data-list-description]');
-  
-      overlayTitle.textContent = book.title;
-      overlaySubtitle.textContent = `${authors[book.author]} (${new Date(book.published).getFullYear()})`;
-      overlayDescription.textContent = book.description;
-  
-      const overlayImage = this.shadowRoot.querySelector('[data-list-image]');
-      overlayImage.src = book.image;
-      overlayImage.alt = book.title;
-  
-      const overlayBlur = this.shadowRoot.querySelector('[data-list-blur]');
-      overlayBlur.src = book.image;
-      overlayBlur.alt = book.title;
-  
-      const dialog = this.shadowRoot.querySelector('dialog');
-      dialog.showModal();
-    }
-  
-    if (active) {
-      const activeList = selectors.objects.activeList;
-      const blurList = selectors.objects.blurList;
-      const imageList = selectors.objects.imageList;
-      const titleList = selectors.objects.titleList;
-      const subactiveList = selectors.objects.subactiveList;
-      const descriptionList = selectors.objects.descriptionList;
-  
-      activeList.open = true;
-      blurList.src = active.image;
-      imageList.src = active.image;
-      titleList.innerText = active.title;
-      subactiveList.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
-      descriptionList.innerText = active.description;
-    }
-  
-    const clickEvent = new CustomEvent('previewClick', {
-      detail: { book: this.book },
-    });
-    this.dispatchEvent(clickEvent);
-  }
+ handleBookClick(book) {
+  // Get references to the elements inside the overlay
+  const overlay = this.shadowRoot.querySelector('.overlay');
+  const previewImage = this.shadowRoot.querySelector('[data-list-image]');
+  const previewBlur = this.shadowRoot.querySelector('[data-list-blur]');
+  const title = this.shadowRoot.querySelector('[data-list-title]');
+  const subtitle = this.shadowRoot.querySelector('[data-list-subtitle]');
+  const description = this.shadowRoot.querySelector('[data-list-description]');
+  const closeButton = this.shadowRoot.querySelector('[data-list-close]');
+
+  // Set the values for the elements
+  previewImage.src = book.imageUrl;
+  previewBlur.src = book.imageUrl;
+  title.textContent = book.title;
+  subtitle.textContent = book.subtitle;
+  description.textContent = book.description;
+
+  // Open the overlay
+  overlay.open = true;
+}
 
 render() {
     if (!this.book) {

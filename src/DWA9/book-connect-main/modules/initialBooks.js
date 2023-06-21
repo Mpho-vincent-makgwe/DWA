@@ -50,7 +50,7 @@ export function createPreviewElements(items) {
 
 
 
-export function initialFragmentPreview() {
+export default function initialFragmentPreview() {
   /** @type {number} */
   let page = 1;
   /** @type {Book[]} */

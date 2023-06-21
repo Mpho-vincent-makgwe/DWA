@@ -27,6 +27,7 @@ window.addEventListener('DOMContentLoaded', booksPreviews);
 selectors.objects.searchForm.addEventListener('submit', (event) => {
   event.preventDefault();
   search();});
+
 settings();
 // new bookPreviewComponent();
 
