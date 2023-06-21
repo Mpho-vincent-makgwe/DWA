@@ -14,6 +14,11 @@ function updateCounterValue() {
 addButton.addEventListener("click", () => {
     counterValue++;
     updateCounterValue();
+    if(counterValue >= 51){
+        counterValue = 0;
+        updateCounterValue();
+        alert("You've reached maximum value.");
+    }
 });
 
 subtractButton.addEventListener("click", () => {
