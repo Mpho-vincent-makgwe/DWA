@@ -1,5 +1,6 @@
 //script.js',
 import './component.js';
+// import './slot-button.js'
 import { createTallyStore } from './customStore.js';
 import { addAction, subtractAction, resetAction } from './actions.js';
 // import './actions.js'

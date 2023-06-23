@@ -43,7 +43,7 @@ btns.innerHTML = /* html */ `
 class UserActionButton extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" }).appendChild(btns.content.cloneNode(true));
+    this.attachShadow({ mode: "closed" }).appendChild(btns.content.cloneNode(true));
   }
 }
 
