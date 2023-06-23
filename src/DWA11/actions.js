@@ -1,88 +1,40 @@
-import {Task, Count}from "./store.js"
-
-const counterValueInput = document.querySelector(".counter__value");
-function updateCounterValue() {
-    counterValueInput.value = counterValue;
-}
-console.log('helloworld');
-let counterValue = 0;
-
+//reducers.js',
 /**
  * Increases the value of the count by one
  * 
- * @typedef {object} AddButton
+ * @typedef {object} AddAction
  * @prop {'ADD_BUTTON'} type
- * @prop {Task} task
+ * @prop {Task} ADD
  */
-export const addButton = (AddValue, counterValue) => {
-    
-    
-    counterValue++;
-    console.log(counterValue);
-    updateCounterValue();
-    if(counterValue >= 51){
-        counterValue = 0;
-        updateCounterValue();
-        alert("You've reached maximum value.");
-    }
-return{
-        type:"ADD_A_VALUE",
-        payload: {
-            name: AddValue,
-            number: counterValue,
-        }
 
-    }
 
-};
+export const addAction = () => ({ type: 'ADD' });
 
 /**
  * the count it's self will change by the given new count
  * 
- * @typedef {object} ChangeCounter
- * @prop {'CHANGE_COUNTER'} type
- * @prop {Count} count
+ * @typedef {object} GetStateAction
+ * @prop {'GET_STATE'} type
+ * @prop {Count} getState
  */
-
+export const getStateAction = () => ({ type: 'GET_STATE' });
 
 /**
  * 
  * Decreases the value of the count by one
  * 
- * @typedef {object} SubButton
- * @prop {'SUBTRACT_BUTTON'} type
+ * @typedef {object} SubtractAction 
+ * @prop {'SUBTRACT'} type
  */
-export const subtractButton = (SubValue, counterValue ) => {
-    if (counterValue > 0) {
-        counterValue--;
-        console.log(counterValue);
-        updateCounterValue();
-    }
-    return{
-        type:"SUB_A_VALUE",
-        payload: {
-            name: SubValue,
-            number: counterValue,
-        }
-
-    }
-};
+export const subtractAction = () => ({ type: 'SUBTRACT' });
 /**
  * resets the counter to the initial value
  * 
- * @typedef {object} ResetButton
- * @prop {'RESET_BUTTON'} type
+ * @typedef {object} ResetAction
+ * @prop {'RESET'} type
  */
-export const resetButton = (ResetValue, counterValue ) => {
-    counterValue = 0;
-    updateCounterValue();
-    alert("Counter has been reset.");
-    return{
-        type:"RESET_A_VALUE",
-        payload: {
-            name: ResetValue,
-            number: counterValue,
-        }
-    }
-};
+
+export const resetAction = () => ({ type: 'RESET' });
+
+
 

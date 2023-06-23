@@ -1,51 +1,30 @@
-/**
- * @typedef {object} Task 
- * @prop {string} id
- * @prop {string} title
- * @prop {Date} created
- */
-export const Task = {};
-/**
- * @typedef {'A-Z' | 'Z-A'} sorting
- */
-export const Count = {};
+//store.js',
+export const createStore = () => {
+let state = { count: 0 };
+const listeners = [];
 
-/**
- * @typedef {object} Filters
- * @prop {'A-Z' | 'Z-A'} sorting
- */
+const getState = () => state;
+
+const dispatch = action => {
+    state = reducer(state, action);
+    listeners.forEach(listener => listener());
+};
+
+const subscribe = listener => {
+    listeners.push(listener);
+    return () => {
+    const index = listeners.indexOf(listener);
+    if (index !== -1) {
+        listeners.splice(index, 1);
+    }
+    };
+};
+
+return {
+    getState,
+    dispatch,
+    subscribe,
+};
+};
 
 
-/**
- * @typedef {state}
- * @prop {'subtracting' | "adding'} phase
- * @prop {Record<string, task>} tasks
- * @prop {Filter} filters
- */
-/**
- * @callback getState
- * @returns {state}
- */
-/**
- * @callback dispatch
- * @param {Action} action
- */
-/**
- * @callback EmptyFn
- */
-/**
- * @callback subscribe
- * @param {State} prev
- * @param {State} next
- * @returns {EmptyFn}
- */
-/**
- * @typedef {object} Store
- * @prop {GetState} getState
- * @prop {subscribe} subscribe
- * @prop {Dispatch} dispatch
- * 
- */
-export let getStateA = () =>{ 
-    console.log("helloworld ");
-}
