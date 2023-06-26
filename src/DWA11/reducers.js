@@ -20,7 +20,6 @@ return actionHandler ? actionHandler() : state;
 //     return oldCounterValue.filter(record => {return record !== action.payload.name;
 //     })
 // }
-    
 // };
 
 
