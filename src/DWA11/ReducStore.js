@@ -4,11 +4,9 @@
  * @prop {string} title
  * @prop {Date} created
  */
- const Task = {};
 /**
  * @typedef {'A-Z' | 'Z-A'} sorting
  */
- const Count = {};
 
 /**
  * @typedef {object} Filter
@@ -54,7 +52,7 @@
  * @prop {Subscribe} subscribe
  * @prop {Dispatch} dispatch
  */
- 
+
 // Define the action types
 const GET_STATE = 'GET_STATE';
 const ADD = 'ADD';
