@@ -12,12 +12,12 @@ import { addAction, subtractAction, resetAction } from './actions.js';
 // import Lit-HTML.js
 // import {LitElement, html} from './Lit-HTML.js';
 
-// const counterValueInput = document.querySelector(".counter__value");
-// const addButton = document.querySelector('[data-key="add"]');
-// const subtractButton = document.querySelector('[data-key="subtract"]');
-// const resetButton = document.querySelector('[data-key="reset"]');
+const counterValueInput = document.querySelector(".counter__value");
+const addButton = document.querySelector('[data-key="add"]');
+const subtractButton = document.querySelector('[data-key="subtract"]');
+const resetButton = document.querySelector('[data-key="reset"]');
 
-// let counterValue = 0;
+let counterValue = 0;
 
 // function updateCounterValue() {
 //     counterValueInput.value = counterValue;

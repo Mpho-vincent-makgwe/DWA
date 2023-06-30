@@ -92,12 +92,12 @@ store = createTallyStore();
 
   updateCounterValue() {
     this.shadowRoot.querySelector('.counter__value').value = this.counterValue;
-store.subscribe(() => {
-  const state = store.getState();
-  counterValue = state.count;
-  updateCounterValue();
-});
-  }
+// store.subscribe(() => {
+//   const state = store.getState();
+//   counterValue = state.count;
+//   updateCounterValue();
+// });
+}
 
 
 counterValue = 0;
@@ -112,84 +112,97 @@ counterValue = 0;
     this.updateCounterValue();
     store.dispatch(resetAction());
     console.log(store.getState());
-  }
-  handleClick(action) {
+  };
 
-    switch (action) {
-      case 'add':
-        if (this.counterValue <= 20) {
-          this.counterValue += 1;
-          this.updateCounterValue();
-          store.dispatch(addAction());
-          console.log(store.getState());
-        } else {
-          this.resetCounterValue();
-        }
-        break;
+handleClick(action) {
 
-      case 'subtract':
-        if (this.counterValue > -10) {
-          this.counterValue -= 1;
-          this.updateCounterValue();
-          store.dispatch(subtractAction());
-          console.log(store.getState());
-        }
-        break;
+   function updateCounterValue() {
+        this.shadowRoot.querySelector('.counter__value').value = this.counterValue;};
 
-      case 'reset':
+   const store = createTallyStore();
+   store.subscribe(() => {
+    const state = store.getState();
+    counterValue = state.count;
+    updateCounterValue();
+  });
+
+switch (action) {
+
+    case 'add':
+    if (this.counterValue <= 20) {
+        this.counterValue += 1;
+        this.updateCounterValue();
+        store.dispatch(addAction());
+        console.log(store.getState());
+    } else {
         this.resetCounterValue();
-        break;
-
-      default:
-        break;
     }
-  }
+    break;
+
+
+    case 'subtract':
+    if (this.counterValue > -10) {
+        this.counterValue -= 1;
+        this.updateCounterValue();
+        store.dispatch(subtractAction());
+        console.log(store.getState());
+    }
+    break;
+
+    case 'reset':
+    this.resetCounterValue();
+    break;
+
+    default:
+    break;
+}
+};
 
 
 
 render() {
 
 return html`
-      <header class="header">
-        <h1>Tally Count</h1>
-      </header>
+    <header class="header">
+    <h1>Tally Count</h1>
+    </header>
 
-      <setting-button class="controls"></setting-button>
+    <setting-button class="controls"></setting-button>
 
-      <main class="counter">
-        <input class="counter__value" data-key="number" readonly value="${this.counterValue}">
-        <div class="counter__actions">
-          <user-action
-            data-key="subtract"
-            class="counter__button"
-            @click="${() => this.handleClick('subtract')}"
-          >
-            -
-          </user-action>
-          <user-action
-            data-key="reset"
-            class="counter__button"
-            @click="${() => this.handleClick('reset')}"
-          >
-            C
-          </user-action>
-          <user-action
-            data-key="add"
-            class="counter__button"
-            @click="${() => this.handleClick('add')}"
-          >
-            +
-          </user-action>
-        </div>
-      </main>
+    <main class="counter">
+    <input class="counter__value" data-key="number" readonly value="${this.counterValue}">
+    <div class="counter__actions">
+        <user-action
+        data-key="subtract"
+        class="counter__button"
+        @click="${() => this.handleClick('subtract')}"
+        >
+        -
+        </user-action>
+        <user-action
+        data-key="reset"
+        class="counter__button"
+        @click="${() => this.handleClick('reset')}"
+        >
+        C
+        </user-action>
+        <user-action
+        data-key="add"
+        class="counter__button"
+        @click="${() => this.handleClick('add')}"
+        >
+        +
+        </user-action>
+    </div>
+    </main>
 
-      <footer class="footer">
-        <p>
-          Inspired by
-          <a class="footer__link" href="https://tallycount.app/" target="_blank">Tally count</a>.
-          Note: This is for a school project and JavaScript practice.
-        </p>
-      </footer>
+    <footer class="footer">
+    <p>
+        Inspired by
+        <a class="footer__link" href="https://tallycount.app/" target="_blank">Tally count</a>.
+        Note: This is for a school project and JavaScript practice.
+    </p>
+    </footer>
 
 `;
 }
