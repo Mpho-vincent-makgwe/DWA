@@ -1,51 +1,57 @@
-//script.js',
+import { } from './Display.js';
+
+ //* script.js',*/
+
 import './component.js';
+
 // import './slot-button.js'
 import { createTallyStore } from './customStore.js';
 import { addAction, subtractAction, resetAction } from './actions.js';
 // import './actions.js'
 // consoleAction();
+// import Lit-HTML.js
+// import {LitElement, html} from './Lit-HTML.js';
 
-const counterValueInput = document.querySelector(".counter__value");
-const addButton = document.querySelector('[data-key="add"]');
-const subtractButton = document.querySelector('[data-key="subtract"]');
-const resetButton = document.querySelector('[data-key="reset"]');
+// const counterValueInput = document.querySelector(".counter__value");
+// const addButton = document.querySelector('[data-key="add"]');
+// const subtractButton = document.querySelector('[data-key="subtract"]');
+// const resetButton = document.querySelector('[data-key="reset"]');
 
-let counterValue = 0;
+// let counterValue = 0;
 
-function updateCounterValue() {
-    counterValueInput.value = counterValue;
-}
-function resetCounterValue() {
-    counterValue=0;
-    alert("Counter has been reset.");
-    updateCounterValue();
-    store.dispatch(resetAction());
-    console.log(store.getState());
-}
-addButton.addEventListener("click", () => {
-    if (counterValue <=20){
-    counterValue = +1;
-    updateCounterValue();
-    store.dispatch(addAction());
-    console.log(store.getState());
-    }else if (counterValue >= 20){
-        resetCounterValue()
-    }
-});
+// function updateCounterValue() {
+//     counterValueInput.value = counterValue;
+// }
+// function resetCounterValue() {
+//     counterValue=0;
+//     alert("Counter has been reset.");
+//     updateCounterValue();
+//     store.dispatch(resetAction());
+//     console.log(store.getState());
+// }
+// addButton.addEventListener("click", () => {
+//     if (counterValue <=20){
+//     counterValue = +1;
+//     updateCounterValue();
+//     store.dispatch(addAction());
+//     console.log(store.getState());
+//     }else if (counterValue >= 20){
+//         resetCounterValue()
+//     }
+// });
 
-subtractButton.addEventListener("click", () => {
-    if (counterValue > -10) {
-        counterValue = counterValue-1;
-        updateCounterValue();
-        store.dispatch(subtractAction());
-        console.log(store.getState());
-    }
-});
+// subtractButton.addEventListener("click", () => {
+//     if (counterValue > -10) {
+//         counterValue = counterValue-1;
+//         updateCounterValue();
+//         store.dispatch(subtractAction());
+//         console.log(store.getState());
+//     }
+// });
 
-resetButton.addEventListener("click", () => {
-    resetCounterValue();
-});
+// resetButton.addEventListener("click", () => {
+//     resetCounterValue();
+// });
 
 // Scenario 1: Increment the counter by one
 // GIVEN no interactions have been performed yet

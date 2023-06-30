@@ -1,3 +1,5 @@
+import {LitElement, html} from './Lit-HTML.js';
+
 const btns = document.createElement("template")
 btns.innerHTML = /* html */ `
 <style>
