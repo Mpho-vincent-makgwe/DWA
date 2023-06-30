@@ -110,8 +110,8 @@ counterValue = 0;
     this.counterValue = 0;
     alert('Counter has been reset.');
     this.updateCounterValue();
-    store.dispatch(resetAction());
-    console.log(store.getState());
+    this.store.dispatch(resetAction());
+    console.log(this.store.getState());
   };
 
 handleClick(action) {
@@ -122,7 +122,7 @@ handleClick(action) {
    const store = createTallyStore();
    store.subscribe(() => {
     const state = store.getState();
-    counterValue = state.count;
+    this.counterValue = state.count;
     updateCounterValue();
   });
 
@@ -132,8 +132,8 @@ switch (action) {
     if (this.counterValue <= 20) {
         this.counterValue += 1;
         this.updateCounterValue();
-        store.dispatch(addAction());
-        console.log(store.getState());
+        this.store.dispatch(addAction());
+        console.log(this.store.getState());
     } else {
         this.resetCounterValue();
     }
@@ -144,8 +144,8 @@ switch (action) {
     if (this.counterValue > -10) {
         this.counterValue -= 1;
         this.updateCounterValue();
-        store.dispatch(subtractAction());
-        console.log(store.getState());
+        this.store.dispatch(subtractAction());
+        console.log(this.store.getState());
     }
     break;
 
