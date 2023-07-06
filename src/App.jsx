@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 
 import './App.css'
+import './Main.css'
 import './NaviBar.css'
 import Footer from'./Components/Footer.jsx'
 import Header from'./Components/Header.jsx'

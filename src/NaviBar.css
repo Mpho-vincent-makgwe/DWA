@@ -2,8 +2,19 @@
     box-sizing: border-box;
 }
 
+.nav--logo_text, .nav--tatle {
+    margin: 0;
+}
+
 body {
     margin: 0;
+}
+
+.nav--logo_text {
+    margin-right: auto;
+    color: #61DAFB;
+    font-weight: 700;
+    font-size: 22px;
 }
 
 

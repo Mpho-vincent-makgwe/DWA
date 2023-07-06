@@ -1,0 +1,18 @@
+
+.main--title {
+    color: #38caa3;
+    font-weight: 600;
+    font-size: 39.06px;
+    letter-spacing: -0.05em;
+    font-family: Inter;
+    font-style: bold;
+}
+
+main {
+    padding: 57px 27px;
+    color: white;
+}
+.list-items{
+    margin-top: 46px;
+    padding-block: 10px;
+}
