@@ -8,7 +8,7 @@ export default function Main() {
             <img src={viteLogo} className="logo" alt="Vite logo" />
             </a> 
 
-            <h1 className='main--title'>Main goes Heret</h1>
+            <h1 className='main--title'>Main goes Here</h1>
             <ul className='list'>
                 <li className='list-items'><p>Was First Released in 2013</p></li>
                 <li className='list-items'><p>Was originally created by Jordan Walke</p></li>
